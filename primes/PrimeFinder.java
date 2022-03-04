@@ -1,10 +1,9 @@
 package primes;
-import java.util.ArrayList;
-import java.util.List;
+import java.util.Arrays;
+import java.util.LinkedList;
 
 public class PrimeFinder {
     int[] primes;
-    
     int found;
 
     public int[] getPrimes() {
@@ -14,8 +13,8 @@ public class PrimeFinder {
     public boolean test(int n) {
         int j = 2;
         int a = 1;
-        int root = (int) Math.sqrt(n) + 1;
-        while ((primes[j] < root) && a!= 0) {
+        int root = (int) Math.sqrt(n);
+        while ((primes[j] <= root) && a!= 0) {
             a = n % primes[j];
             j++;
         }
@@ -41,24 +40,25 @@ public class PrimeFinder {
     }
 
     public void findRange(int max) {
-        List<Integer> primes1 = new ArrayList<>(max/2 + 1);
-        List<Integer> primes2 = new ArrayList<>(max/2);
-        
-    //TODO make this loop add the prime numbers to a third list that will be the final list of primes.
+        primes = new int[max/3 + 2];
+        primes[0] = 2; primes[1] = 3;
+        LinkedList<Integer> finalList = new LinkedList<>();
         int root = (int) Math.sqrt(max) + 1;
-        primes1.add(2);
-        for (int i = 3; i < max; i++) {
-            primes1.add(i);
+        int i = 5;
+        int j = 2;
+        while (i <= max) {
+            primes[j++] = i;
+            i += 2 + ((i + 1) % 6);
         }
-        int n = 0;
-        while (n < root) {
-            n = primes1.remove(0);
-            primes2.add(n);
-            for (int i : primes1) {
-                if (i % n != 0) {
-                    primes2.add(i);
-                }
-            }
+        int n;
+        while (primes[0] < root) {
+            n = primes[0];
+            primes = Arrays.stream(primes).filter(x -> (x%primes[0]) != 0).toArray();
+            finalList.add(n);
         }
+        for (int k : primes) {
+            finalList.add(k);
+        }
+        primes = finalList.stream().mapToInt(Integer::intValue).toArray();
     }
 }
