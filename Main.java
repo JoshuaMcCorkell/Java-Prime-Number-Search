@@ -2,7 +2,7 @@ import primes.PrimeFinder;
 
 public class Main {
     public static void main(String[] args) {
-        int n = 10000000;
+        int n = 1000000;
         PrimeFinder finder = new PrimeFinder();
 
         long start = System.nanoTime();
@@ -12,5 +12,8 @@ public class Main {
         System.out.println(finder.getPrimes()[n - 1]);
         System.out.print("Duration (ms): ");
         System.out.println((end - start)/1000000);
+
+        finder.findRange(50);
+        
     }
 }
