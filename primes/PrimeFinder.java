@@ -50,15 +50,18 @@ public class PrimeFinder {
             primes[j++] = i;
             i += 2 + ((i + 1) % 6);
         }
-        int n;
         while (primes[0] < root) {
-            n = primes[0];
-            primes = Arrays.stream(primes).filter(x -> (x%primes[0]) != 0).toArray();
-            finalList.add(n);
+            finalList.add(primes[0]);
+            primes = Arrays.stream(primes).filter(x -> div(x, primes[0])).toArray();
         }
+        /*
         for (int k : primes) {
             finalList.add(k);
         }
-        primes = finalList.stream().mapToInt(Integer::intValue).toArray();
+        primes = finalList.stream().mapToInt(Integer::intValue).toArray();*/
+    }
+
+    private boolean div(int x, int div) {
+        return (x%div) != 0 && x != div;
     }
 }
