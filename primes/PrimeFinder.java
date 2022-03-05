@@ -54,11 +54,6 @@ public class PrimeFinder {
             finalList.add(primes[0]);
             primes = Arrays.stream(primes).filter(x -> div(x, primes[0])).toArray();
         }
-        /*
-        for (int k : primes) {
-            finalList.add(k);
-        }
-        primes = finalList.stream().mapToInt(Integer::intValue).toArray();*/
     }
 
     private boolean div(int x, int div) {
