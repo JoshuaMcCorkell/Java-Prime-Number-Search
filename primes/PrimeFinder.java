@@ -38,11 +38,11 @@ public class PrimeFinder {
             i += 2 + ((i + 1) % 6);
         }
     }
-
+    
+    int k;
     public void findRange(int max) {
         primes = new int[max/3 + 2];
         primes[0] = 2; primes[1] = 3;
-        LinkedList<Integer> finalList = new LinkedList<>();
         int root = (int) Math.sqrt(max) + 1;
         int i = 5;
         int j = 2;
@@ -50,13 +50,14 @@ public class PrimeFinder {
             primes[j++] = i;
             i += 2 + ((i + 1) % 6);
         }
-        while (primes[0] < root) {
-            finalList.add(primes[0]);
-            primes = Arrays.stream(primes).filter(x -> div(x, primes[0])).toArray();
+        k = 2;
+        while (primes[k] < root) {
+            primes = Arrays.stream(primes).filter(x -> div(x, primes[k])).toArray();
+            k++;
         }
     }
 
     private boolean div(int x, int div) {
-        return (x%div) != 0 && x != div;
+        return (x%div) != 0 || x == div;
     }
 }
