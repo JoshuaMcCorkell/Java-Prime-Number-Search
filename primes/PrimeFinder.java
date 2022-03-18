@@ -60,4 +60,37 @@ public class PrimeFinder {
     private boolean div(int x, int div) {
         return (x%div) != 0 || x == div;
     }
+
+    public void findRangeFast(int max) {
+        boolean[] isPrime = new boolean[max];
+        for (int i = 0; i < max; i++) {
+            isPrime[i] = true;
+        }
+        isPrime[0] = false;
+        isPrime[1] = false;
+        int root = (int) Math.sqrt(max);
+
+        for (int i = 2; i <= root; i++) {
+            if (isPrime[i]) {
+                for (int j = i*i; j < max; j+= i) {
+                    isPrime[j] = false;
+                }
+            }
+        }
+
+        int primeCount = 0;
+        for (int i = 0; i < max; i++) {
+            if (isPrime[i]) {
+                primeCount++;
+            }
+        }
+
+        primes = new int[primeCount];
+        int index = 0;
+        for (int i = 0; i < max; i++) {
+            if (isPrime[i]) {
+                primes[index++] = i;
+            }
+        }
+    }
 }
